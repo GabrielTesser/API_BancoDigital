@@ -12,15 +12,21 @@ abstract class DAO extends PDO
 
     public function __construct()
     {
-        try
+        try 
         {
-            $dsn = "mysql:host=" . $_ENV['db']['host'] . ":dbname=" . $_ENV['db']['database'];
+    
+            $options = [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+            ];
 
-            $this->conexao = new PDO($dsn, $_ENV['db']['user'], $_ENV['db']['pass'], array(PDO::MYSQL_ATTR_INIT_COMMAND =>  "SET NAMES utf8", PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
-        }
-        catch(PDOException $e)
+            $dsn = "mysql:host=" . $_ENV['db']['host'] . ";dbname=" . $_ENV['db']['database'];
+
+            $this->conexao = new PDO($dsn, $_ENV['db']['user'], $_ENV['db']['pass'], $options);
+
+        } catch (PDOException $e) 
         {
-            throw new Exception("Ocorreu um erro ao tentar conectar ao Mysql", 0, $e);
+            throw new Exception("Ocorreu um erro ao tentar conectar ao MySQL", 0, $e);
         }
     }
 }
