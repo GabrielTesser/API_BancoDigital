@@ -6,6 +6,6 @@ use Exception;
 
 abstract class Model {
     
-    public $rows;
+    public $rows = [];
     
 }

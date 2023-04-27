@@ -12,7 +12,7 @@ class CorrentistaDAO extends DAO
         parent::__construct();
     }
 
-    public function Select()
+    public function select() : array
     {
         $sql = "SELECT * FROM correntista ";
 
@@ -22,8 +22,21 @@ class CorrentistaDAO extends DAO
         return $stmt->fetchAll(DAO::FETCH_CLASS);
     }
 
-    public function insert(CorrentistaModel $m) : bool
+    public function search(string $query): array
     {
+        $str_query = ['filtro' => '%' . $query . '%'];
+
+        $sql = "SELECT * FROM correntista WHERE nome LIKE :filtro ";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->execute($str_query);
+
+        return $stmt->fetchAll(DAO::FETCH_CLASS, "Api\Model\CorrentistaModel");
+    }
+
+    public function insert(CorrentistaModel $m) : CorrentistaModel
+    {
+
         $sql = "INSERT INTO correntista (nome, cpf, senha, data_nasc) VALUES (?, ?, ?, ?) ";
 
         $stmt = $this->conexao->prepare($sql);
@@ -32,10 +45,12 @@ class CorrentistaDAO extends DAO
         $stmt->bindValue(3, $m->senha);
         $stmt->bindValue(4, $m->data_nasc);
 
-        return $stmt->execute();
+        $m->id = $this->conexao->lastInsertId();
+
+        return $m;
     }
 
-    public function Update(CorrentistaModel $m)
+    public function update(CorrentistaModel $m) : bool
     {
         $sql = "UPDATE correntista SET nome=?, cpf=?, senha=?, data_nasc=? WHERE id=? ";
 

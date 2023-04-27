@@ -7,7 +7,7 @@ use Exception;
 
 class CorrentistaController extends Controller
 {
-    public static function Save() : void
+    public static function salvar() : void
     {
         try
         {
@@ -28,19 +28,54 @@ class CorrentistaController extends Controller
         }
     }
     
-    public static function listar()
+    public static function listar() : void
     {
+        try
+        {
+            $model = new CorrentistaModel();
+            
+            $model->getAllRows();
 
+            parent::getResponseAsJSON($model->rows);
+              
+        } catch (Exception $e) {
+
+            parent::LogError($e);
+            parent::getExceptionAsJSON($e);
+        }
     }
 
-    public static function deletar()
+    public static function buscar() : void
     {
-        
+        try
+        {
+            $model = new CorrentistaModel();
+            
+            $q = json_decode(file_get_contents('php://input'));
+                        
+            $model->getAllRows($q);
+
+            parent::getResponseAsJSON($model->rows);
+              
+        } catch (Exception $e) {
+
+            parent::LogError($e);
+            parent::getExceptionAsJSON($e);
+        }    }
+
+    public static function deletar() :void
+    {
+        try 
+        {
+            $id = json_decode(file_get_contents('php://input'));
+            
+            (new CorrentistaModel())->delete( (int) $id);
+
+        } catch (Exception $e) {
+
+            parent::LogError($e);
+            parent::getExceptionAsJSON($e);
+        }
     }
 
-   /* public static function Login()
-    {
-        
-    }
-    */
 }
