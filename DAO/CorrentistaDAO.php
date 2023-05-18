@@ -1,9 +1,10 @@
 <?php
 
-namespace Api\DAO;
+namespace APP\DAO;
 
-use Api\Model\CorrentistaModel;
+use APP\Model\CorrentistaModel;
 use APP\DAO\DAO;
+use PDO;
 
 class CorrentistaDAO extends DAO
 {
@@ -34,42 +35,69 @@ class CorrentistaDAO extends DAO
         return $stmt->fetchAll(DAO::FETCH_CLASS, "Api\Model\CorrentistaModel");
     }
 
-    public function insert(CorrentistaModel $m) : CorrentistaModel
+    public function insert(CorrentistaModel $model) : CorrentistaModel
     {
 
-        $sql = "INSERT INTO correntista (nome, cpf, senha, data_nasc) VALUES (?, ?, ?, ?) ";
+        $sql = "INSERT INTO correntista (nome, cpf, data_nasc, senha) VALUES (?, ?, ?, sha1(?) )";
 
         $stmt = $this->conexao->prepare($sql);
-        $stmt->bindValue(1, $m->nome);
-        $stmt->bindValue(2, $m->cpf);
-        $stmt->bindValue(3, $m->senha);
-        $stmt->bindValue(4, $m->data_nasc);
+        $stmt->bindValue(1, $model->nome);
+        $stmt->bindValue(2, $model->cpf);
+        $stmt->bindValue(3, $model->data_nasc);
+        $stmt->bindValue(4, $model->senha);
+        $stmt->execute();
 
-        $m->id = $this->conexao->lastInsertId();
+        $model->id = $this->conexao->lastInsertId();
 
-        return $m;
+        return $model;
     }
 
-    public function update(CorrentistaModel $m) : bool
+    public function update(CorrentistaModel $model) : bool
     {
-        $sql = "UPDATE correntista SET nome=?, cpf=?, senha=?, data_nasc=? WHERE id=? ";
+        $sql = "UPDATE correntista SET nome=?, cpf=?, data_nasc=?, senha=? WHERE id=? ";
 
         $stmt = $this->conexao->prepare($sql);
-        $stmt->bindValue(1, $m->nome);
-        $stmt->bindValue(2, $m->cpf);
-        $stmt->bindValue(2, $m->senha);
-        $stmt->bindValue(2, $m->data_nasc);
-        $stmt->bindValue(3, $m->id);
+        $stmt->bindValue(1, $model->nome);
+        $stmt->bindValue(2, $model->cpf);
+        $stmt->bindValue(3, $model->data_nasc);
+        $stmt->bindValue(4, $model->senha);
+        $stmt->bindValue(5, $model->id);
 
         return $stmt->execute();
     }
 
     public function delete(int $id) : bool
     {
-        $sql = "DELETE FROM correntista WHERE id = ? ";
+        $sql = "DELETE FROM correntista WHERE id=?";
 
         $stmt = $this->conexao->prepare($sql);
         $stmt->bindValue(1, $id);
         return $stmt->execute();
     }
+
+    public function selectById($id)
+    {
+        $sql = "SELECT * FROM correntista c WHERE id = ?";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(1, $id);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_CLASS);
+    }
+
+    public function getCorrentistaByCpfAndSenha($cpf, $senha)
+    {
+        $sql = "SELECT * FROM correntista c WHERE cpf = ? AND senha = sha1(?)";
+
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindValue(1, $cpf);
+        $stmt->bindValue(2, $senha);
+
+        $stmt->execute();
+
+        return $stmt->fetchObject();
+    }
+
 }

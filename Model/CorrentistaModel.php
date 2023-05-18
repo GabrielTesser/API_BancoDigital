@@ -1,17 +1,17 @@
 <?php
 
-namespace Api\Model;
+namespace APP\Model;
 
-use Api\DAO\CorrentistaDAO;
+use APP\DAO\CorrentistaDAO;
 
 class CorrentistaModel extends Model
 {
-    public $id, $nome, $cpf, $senha, $data_nasc;
+    public $id, $nome, $cpf, $data_nasc, $senha;
 
     public function save()
     {
         if($this->id == null)
-            (new CorrentistaDAO())->insert($this);
+            return (new CorrentistaDAO())->insert($this);
         else
             (new CorrentistaDAO())->update($this);
     }
@@ -20,6 +20,19 @@ class CorrentistaModel extends Model
     {
         $this->rows = (new CorrentistaDAO())->select();
     }
+
+    public function getById(int $id) 
+	{
+		$dao = new CorrentistaDAO();
+
+		$this->rows = $dao->selectById($id);
+	}
+
+    public function auth($cpf, $senha){
+		$dao = new CorrentistaDAO();
+
+		return $dao->getCorrentistaByCpfAndSenha($cpf, $senha);		
+	}
 
     public function delete()
     {

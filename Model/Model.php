@@ -1,11 +1,11 @@
 <?php
 
-namespace Api\Model;
+namespace APP\Model;
 
 use Exception;
 
 abstract class Model {
     
-    public $rows = [];
+    public $rows;
     
 }
