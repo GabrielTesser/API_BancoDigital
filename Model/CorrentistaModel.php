@@ -6,36 +6,15 @@ use APP\DAO\CorrentistaDAO;
 
 class CorrentistaModel extends Model
 {
-    public $id, $nome, $cpf, $data_nasc, $senha;
+    public $id, $nome, $email, $cpf, $data_nascimento, $senha;
 
-    public function save()
+    public function save() : ?CorrentistaModel
     {
-        if($this->id == null)
-            return (new CorrentistaDAO())->insert($this);
-        else
-            (new CorrentistaDAO())->update($this);
+        return (new CorrentistaDAO())->save($this);     
     }
-
-    public function getAllRows()
-    {
-        $this->rows = (new CorrentistaDAO())->select();
-    }
-
-    public function getById(int $id) 
-	{
-		$dao = new CorrentistaDAO();
-
-		$this->rows = $dao->selectById($id);
-	}
-
-    public function auth($cpf, $senha){
-		$dao = new CorrentistaDAO();
-
-		return $dao->getCorrentistaByCpfAndSenha($cpf, $senha);		
-	}
-
-    public function delete()
-    {
-        (new CorrentistaDAO())->delete($this->id);
+    
+    public function getByCpfAndSenha($cpf, $senha) : CorrentistaModel
+    {      
+        return (new CorrentistaDAO())->selectByCpfAndSenha($cpf, $senha);
     }
 }
