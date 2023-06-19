@@ -1,8 +1,8 @@
 <?php
 
-namespace APP\Controller;
+namespace App\Controller;
 
-use APP\Model\CorrentistaModel;
+use App\Model\CorrentistaModel;
 use Exception;
 
 class CorrentistaController extends Controller

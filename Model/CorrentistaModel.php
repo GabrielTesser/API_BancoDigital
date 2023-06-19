@@ -1,8 +1,8 @@
 <?php
 
-namespace APP\Model;
+namespace App\Model;
 
-use APP\DAO\CorrentistaDAO;
+use App\DAO\CorrentistaDAO;
 
 class CorrentistaModel extends Model
 {

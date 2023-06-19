@@ -1,9 +1,9 @@
 <?php
 
-namespace APP\DAO;
+namespace App\DAO;
 
-use APP\Model\CorrentistaModel;
-use APP\DAO\DAO;
+use App\Model\CorrentistaModel;
+use App\DAO\DAO;
 use PDO;
 
 class CorrentistaDAO extends DAO
