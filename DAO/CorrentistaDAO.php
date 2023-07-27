@@ -24,10 +24,7 @@ class CorrentistaDAO extends DAO
    
     private function insert(CorrentistaModel $model)
     {
-        $sql = "INSERT INTO correntista
-                            (nome, email, cpf, data_nascimento, senha) 
-                VALUES 
-                            (?, ?, ?, ?, sha1(?) ) ";
+        $sql = "INSERT INTO correntista (nome, email, cpf, data_nascimento, senha) VALUES (?, ?, ?, ?, sha1(?) ) ";
 
         $stmt = $this->conexao->prepare($sql);
 

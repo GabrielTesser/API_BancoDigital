@@ -3,36 +3,29 @@ namespace APP\Model;
 
 use APP\DAO\ContaDAO;
 
-class ContaModel extends Model {
-	public $id, $tipo, $saldo, $limite, $id_correntista;
+class ContaModel extends Model
+{
+	public $id, $id_correntista, $saldo, $limite, $tipo, $data_abertura;
 
 	public function save() 
 	{
 		$dao = new ContaDAO();
-		if($this->id == null)
-			$dao->insert($this);
-		else
-			$dao->update($this);
+
+		if(empty($this->id))
+        {
+            $dao->insert($this);
+
+        } else 
+		{
+
+        }        
+
 	}
 
-	public function getAllRows() 
-	{
-		$dao = new ContaDAO();
-
-		$this->rows = $dao->select();
-	}
-
-	public function delete(int $id) 
+	public function getAllRows(int $id_cidadao)
 	{
 		$dao = new ContaDAO();
 		
-		$dao->delete($id);
-	}
-
-	public function getById(int $id) 
-	{
-		$dao = new ContaDAO();
-
-		$this->rows = $dao->selectById($id);
+		$this->rows = $dao->select($id_cidadao);
 	}
 }

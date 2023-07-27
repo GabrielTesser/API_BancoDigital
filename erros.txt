@@ -1,0 +1,6 @@
+#0 C:\Users\Usuario\Desktop\APP\DAO\ContaDAO.php(25): PDOStatement->execute()
+#1 C:\Users\Usuario\Desktop\APP\Model\CorrentistaModel.php(28): APP\DAO\ContaDAO->insert(Object(APP\Model\ContaModel))
+#2 C:\Users\Usuario\Desktop\APP\Controller\CorrentistaController.php(26): App\Model\CorrentistaModel->save()
+#3 C:\Users\Usuario\Desktop\APP\rotas.php(29): App\Controller\CorrentistaController::salvar()
+#4 C:\Users\Usuario\Desktop\APP\index.php(5): include('C:\\Users\\Usuari...')
+#5 {main}
