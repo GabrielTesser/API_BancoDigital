@@ -5,7 +5,7 @@ use APP\DAO\ContaDAO;
 
 class ContaModel extends Model
 {
-	public $id, $id_correntista, $saldo, $limite, $tipo, $data_abertura;
+	public $id, $id_cliente, $saldo, $limite, $tipo, $data_abertura;
 
 	public function save() 
 	{

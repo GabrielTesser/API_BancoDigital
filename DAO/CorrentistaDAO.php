@@ -15,20 +15,18 @@ class CorrentistaDAO extends DAO
         parent::__construct();       
     }
 
-    public function save(CorrentistaModel $m) : CorrentistaModel
+    public function save(CorrentistaModel $m) : ?CorrentistaModel
     {
         return ($m->id == null) ? $this->insert($m) : $this->update($m);
     }
 
 
    
-    private function insert(CorrentistaModel $model)
+    private function insert(CorrentistaModel $model) : ?CorrentistaModel
     {
         $sql = "INSERT INTO correntista (nome, email, cpf, data_nascimento, senha) VALUES (?, ?, ?, ?, sha1(?) ) ";
 
         $stmt = $this->conexao->prepare($sql);
-
-
        
         $stmt->bindValue(1, $model->nome);
         $stmt->bindValue(2, $model->email);

@@ -21,7 +21,7 @@ class CorrentistaModel extends Model
             $dao_conta = new ContaDAO();
 
             $conta_corrente = new ContaModel();
-            $conta_corrente->id_correntista = $model_preenchido->id;
+            $conta_corrente->id_cliente = $model_preenchido->id;
             $conta_corrente->saldo = 0;
             $conta_corrente->limite = 100;
             $conta_corrente->tipo = 'C';
@@ -30,7 +30,7 @@ class CorrentistaModel extends Model
             $model_preenchido->rows_contas[] = $conta_corrente;
 
             $conta_poupanca = new ContaModel();
-            $conta_poupanca->id_correntista = $model_preenchido->id;
+            $conta_poupanca->id_cliente = $model_preenchido->id;
             $conta_poupanca->saldo = 0;
             $conta_poupanca->limite = 0;
             $conta_poupanca->tipo = 'P';
