@@ -4,35 +4,21 @@ namespace APP\Model;
 use APP\DAO\ChaveDAO;
 
 class ChaveModel extends Model {
-	public $id, $tipo, $chave, $id_conta;
+	
+	public $id, $id_conta, $tipo, $chave;
 
-	public function save() 
+	public function save() : ?ChaveModel
 	{
-		$dao = new ChaveDAO();
-		if($this->id == null)
-			$dao->insert($this);
-		else
-			$dao->update($this);
+		return (new ChaveDAO())->save($this);
 	}
 
-	public function getAllRows() 
+	public function getAllRows(int $id_correntista) : array
 	{
-		$dao = new ChaveDAO();
-
-		$this->rows = $dao->select();
+		return (new ChaveDAO())->select($id_correntista);  
 	}
 
-	public function delete(int $id) 
+	public function remove() : bool
 	{
-		$dao = new ChaveDAO();
-		
-		$dao->delete($id);
-	}
-
-	public function getById(int $id) 
-	{
-		$dao = new ChaveDAO();
-
-		$this->rows = $dao->selectById($id);
+		return (new ChaveDAO())->delete($this);  
 	}
 }
