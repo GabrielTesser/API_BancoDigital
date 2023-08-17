@@ -13,80 +13,31 @@ class TransacaoDAO extends DAO {
 
     public function insert(TransacaoModel $model)
     {
-        $sql = "INSERT INTO transacao(valor, data_hora, id_conta_enviou, id_conta_recebeu) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO Reclamacao (id_categoria, id_cidadao, id_bairro, descricao, titulo, endereco, latitude, longitude, foto) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) ";
 
         $stmt = $this->conexao->prepare($sql);
-        $stmt->bindValue(1, $model->valor);
-        $stmt->bindValue(2, $model->data_hora);
-        $stmt->bindValue(3, $model->id_conta_enviou);
-        $stmt->bindValue(4, $model->id_conta_recebeu);
-        $stmt->execute();
+        
+        $stmt->bindValue(1, $model->id_categoria);
+        $stmt->bindValue(2, $model->id_cidadao);
+        $stmt->bindValue(3, $model->id_bairro);
+        $stmt->bindValue(4, $model->descricao);
+        $stmt->bindValue(5, $model->titulo);
+        $stmt->bindValue(6, $model->endereco);
+        $stmt->bindValue(7, $model->latitude);
+        $stmt->bindValue(8, $model->longitude);
+        $stmt->bindValue(9, $model->foto);
 
-        return $this->conexao->lastInsertId();
+        return $stmt->execute();
     }
 
-    public function update(TransacaoModel $model)
+    public function select(int $id_cidadao)
     {
-        $sql = "UPDATE transacao SET valor = ?, data_hora = ?, id_conta_enviou = ?, id_conta_recebeu = ? WHERE id = ?";
+        $sql = "SELECT * FROM Reclamacao WHERE id_cidadao = ? ";
 
         $stmt = $this->conexao->prepare($sql);
-        $stmt->bindValue(1, $model->valor);
-        $stmt->bindValue(2, $model->data_hora);
-        $stmt->bindValue(3, $model->id_conta_enviou);
-        $stmt->bindValue(4, $model->id_conta_recebeu);
-        $stmt->bindValue(5, $model->id);
-        $stmt->execute();
-
-        return $this->conexao->lastInsertId();
-    }
-
-    public function select()
-    {
-        $sql = "SELECT t.*,
-                        co1.nome as nome_enviou,
-                        co2.nome as nome_recebeu              
-                FROM transacao t             
-                JOIN conta c1 ON c1.id = t.id_conta_enviou
-                JOIN correntista co1 ON co1.id = c1.id_correntista
-                JOIN conta c2 ON c2.id = t.id_conta_recebeu
-                JOIN correntista co2 ON co2.id = c2.id_correntista
-                ";
-
-        $stmt = $this->conexao->prepare($sql);
-
+        $stmt->bindValue(1, $id_cidadao);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS);
-    }
-
-    public function selectById($id)
-    {
-        $sql = "SELECT t.*,
-                        co1.nome as nome_enviou,
-                        co2.nome as nome_recebeu              
-                FROM transacao t             
-                JOIN conta c1 ON c1.id = t.id_conta_enviou
-                JOIN correntista co1 ON co1.id = c1.id_correntista
-                JOIN conta c2 ON c2.id = t.id_conta_recebeu
-                JOIN correntista co2 ON co2.id = c2.id_correntista
-                WHERE t.id = ?
-                ";
-
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindValue(1, $id);
-
-        $stmt->execute();
-
-        return $stmt->fetchAll(PDO::FETCH_CLASS);
-    }
-
-    public function delete($id)
-    {
-        $sql = "DELETE FROM transacao WHERE id = ?";
-
-        $stmt = $this->conexao->prepare($sql);
-        $stmt->bindValue(1, $id);
-
-        $stmt->execute();       
     }
 }

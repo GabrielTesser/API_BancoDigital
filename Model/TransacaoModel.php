@@ -4,36 +4,27 @@ namespace APP\Model;
 use APP\DAO\TransacaoDAO;
 
 class TransacaoModel extends Model {
-	public $id, $valor, $data_hora, $id_conta_enviou, $id_conta_recebeu;
+    public $id, $id_categoria, $id_cidadao, $id_bairro, $descricao, $titulo, $endereco, $latitude, $longitude, $foto;
 
 	
 	public function save() 
 	{
-		$dao = new TransacaoDAO();
-		if($this->id == null)
-			$dao->insert($this);
-		else
-			$dao->update($this);
+		$dao = new TransacaoDAO(); 
+
+        if(empty($this->id))
+        {
+            $dao->insert($this);
+
+        } else {
+
+        }        
 	}
 
-	public function getAllRows() 
+	public function getAllRows(int $id_cidadao) 
 	{
 		$dao = new TransacaoDAO();
 
-		$this->rows = $dao->select();
+        $this->rows = $dao->select($id_cidadao);
 	}
 
-	public function delete(int $id) 
-	{
-		$dao = new TransacaoDAO();
-		
-		$dao->delete($id);
-	}
-
-	public function getById(int $id) 
-	{
-		$dao = new TransacaoDAO();
-
-		$this->rows = $dao->selectById($id);
-	}
 }
