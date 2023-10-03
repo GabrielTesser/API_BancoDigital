@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Page</title>
+	<style>
+		body {
+			background: linear-gradient(to right, #3400E6, #FF0062);
+		}
+		.container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			height: 100vh;
+		}
+		#Login {
+			font-size: 50;
+			
+
+		}
+		#logo {
+			width: 100px;
+			height: 100px;
+			background-size: cover;
+			margin-bottom: 20px;
+			scale: 3;
+		}
+		form {
+			background-color: white;
+			border-radius: 5px;
+			padding: 30px;
+			margin-bottom: 20px;
+		}
+		label {
+			display: block;
+			margin-bottom: 10px;
+			font-weight: bold;
+		}
+		input {
+			display: block;
+			width: 100%;
+			padding: 10px;
+			margin-bottom: 20px;
+			border-radius: 5px;
+			border: none;
+			box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		}
+		button {
+			display: block;
+			width: 100%;
+			padding: 10px;
+			border-radius: 10px;
+			border: 3px solid black;
+			background-color: white;
+			color: black;
+			font-weight: bold;
+			margin-top: 20px;
+			cursor: pointer;
+			transition: all 0.2s ease-in-out;
+		}
+		button:hover {
+			background-color: black;
+			color: white;
+		}
+		.message {
+			color: white;
+			margin-bottom: 20px;
+		}
+		#criar {
+			color: white;
+			text-decoration: none;
+		}
+		#criar:hover
+		{
+			color: black;
+			text-decoration: underline;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+
+		<img id="logo"src="imagem/GT.png" />
+
+		<form>
+			<label id="Login" for="cpf">LOGIN</label>
+			<input type="text" id="cpf" name="cpf" placeholder="CPF" maxlength="11" type="number"/>
+			<label for="senha">Senha:</label>
+			<input type="password" id="senha" name="senha" placeholder="Senha" />
+			<button type="submit">Logar</button>
+		</form>
+		<div class="message">Não possui uma conta?</div>
+		<a id="criar" href="">Criar</a>
+</body>
+</html>
+
