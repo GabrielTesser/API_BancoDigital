@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-body {
+		body {
 			background: linear-gradient(to right, #3400E6, #FF0062);
 		}
 		.container {
@@ -27,7 +27,6 @@ body {
 
 		}
 		#logo {
-            align-items: center;
 			width: 100px;
 			height: 100px;
 			background-size: cover;
@@ -74,6 +73,7 @@ body {
 		.message {
 			color: white;
 			margin-bottom: 20px;
+			text-align: center;
 		}
 		#criar {
 			color: white;
@@ -87,22 +87,26 @@ body {
     </style>
 </head>
 <body>
-    <img id="logo"src="imagem/GT.png" />
-    <label id="Login">LOGIN</label>
 
-    <form>
-        <label for="Nome">Nome:</label>
-        <input type="text" id="Nome" name="Nome" placeholder="Nome:"/>
-        <label for="Email">Email: </label>
-        <input type="text" id="Email" name="Email" placeholder="Email:"/>
-        <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" maxlength="11" type="number"/>
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" placeholder="Senha" />
-        <button type="submit">Criar</button>
-    </form>
-    <div class="message">Já possui uma conta?</div>
-    <a id="criar" href="">Logar</a>
+	<div class="container">
 
+		<label id="Login">CRIAR</label>
+	
+		<form>
+			<label for="Nome">Nome:</label>
+			<input type="text" id="Nome" name="Nome" placeholder="Nome:"/>
+			<label for="Email">Email: </label>
+			<input type="text" id="Email" name="Email" placeholder="Email:"/>
+			<label for="cpf">CPF:</label>
+			<input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" maxlength="11" type="number"/>
+			<label for="senha">Senha:</label>
+			<input type="password" id="senha" name="senha" placeholder="Senha" />
+			<button type="submit">Criar</button>
+		</form>
+		<div class="message">Já possui uma conta?</div>
+		<a id="criar" href="">Logar</a>	
+
+	</div>
+    
 </body>
 </html>
